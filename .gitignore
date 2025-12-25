@@ -1,0 +1,9 @@
+# .gitignore MUST include:
+node_modules/
+.env
+*.log
+.DS_Store
+dist/
+build/
+.next/
+out/

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= book ? 'Edit Book' : 'Add Book' %></title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    body {
+      background: #f8f8f3;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 2rem;
+    }
+    .form-container {
+      width: 100%;
+      max-width: 500px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(128,128,0,0.10);
+      padding: 2rem 2.5rem;
+      margin-bottom: 2rem;
+    }
+    h1 {
+      color: #808000;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    form label {
+      color: #808000;
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+    form input, form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #e6e6d6;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      background: #f8f8f3;
+      transition: border-color 0.2s;
+    }
+    form input:focus, form textarea:focus {
+      border-color: #808000;
+      outline: none;
+    }
+    form button {
+      background: #808000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background 0.2s;
+    }
+    form button:hover {
+      background: #556B2F;
+    }
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #808000;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .back-link:hover {
+      color: #556B2F;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="form-container">
+      <h1><%= book ? 'Edit Book' : 'Add Book' %></h1>
+      <form action="<%= book ? '/books/' + book.id : '/books' %>" method="POST">
+        <label>Title:</label>
+        <input type="text" name="title" value="<%= book ? book.title : '' %>" required>
+        <label>Author:</label>
+        <input type="text" name="author" value="<%= book ? book.author : '' %>">
+        <label>Review:</label>
+        <textarea name="review"><%= book ? book.review : '' %></textarea>
+        <label>Rating:</label>
+        <input type="number" name="rating" min="1" max="5" value="<%= book ? book.rating : '' %>">
+        <label>ISBN:</label>
+        <input type="text" name="isbn" value="<%= book ? book.isbn : '' %>">
+        <label>Date Read:</label>
+        <input type="date" name="date_read" value="<%= book && book.date_read ? book.date_read.toISOString().slice(0,10) : '' %>">
+        <button type="submit"><%= book ? 'Update' : 'Add' %></button>
+      </form>
+      <a class="back-link" href="/books">Back to list</a>
+    </div>
+  </div>
+</body>
+</html>

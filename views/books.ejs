@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Book Notes</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background: #fff8f0;
+      }
+      .main-wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: 2rem;
+      }
+      .container {
+        width: 100%;
+        max-width: 700px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 16px rgba(255, 136, 0, 0.1);
+        padding: 2rem 2.5rem;
+        margin-bottom: 2rem;
+      }
+      .book-list {
+        margin: 0;
+        padding: 0;
+      }
+      .book-list li {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s forwards;
+        animation-delay: var(--delay);
+        background: #fff8f0;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        box-shadow: 0 1px 4px rgba(255, 136, 0, 0.05);
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .book-list img {
+        height: 90px;
+        border-radius: 4px;
+        box-shadow: 0 1px 4px rgba(255, 136, 0, 0.08);
+        background: #fff8f0;
+      }
+      .actions {
+        margin-top: 0.5rem;
+      }
+      a,
+      .btn {
+        color: #ff8800;
+      }
+      a:hover,
+      .btn:hover {
+        color: #ff6600;
+      }
+      header {
+        background-color: #ff8800;
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+        font-size: 2rem;
+        letter-spacing: 2px;
+        box-shadow: 0 2px 8px rgba(255, 136, 0, 0.07);
+      }
+      .btn {
+        display: inline-block;
+        padding: 8px 16px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #ff8800;
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+      }
+      .btn:hover {
+        background-color: #ff6600;
+      }
+      .delete-btn {
+        background-color: #ff6600;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 0.4rem 1rem;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .delete-btn:hover {
+        background-color: #ff3300;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Book Notes</header>
+    <div class="main-wrapper">
+      <div class="container">
+        <a
+          class="btn"
+          href="/books/new"
+          style="margin-bottom: 1rem; display: inline-block"
+          >Add New Book</a
+        >
+        <ul class="book-list">
+          <% books.forEach(function(book, i) { %>
+          <li style="--delay: <%= i * 0.1 %>s">
+            <img
+              src="<%= book.cover_url %>"
+              alt="Cover"
+              onerror="this.src='/default-cover.svg'"
+            />
+            <div class="book-details">
+              <div class="book-title"><%= book.title %></div>
+              <div class="book-author">by <%= book.author %></div>
+              <div class="book-meta">
+                Rating: <%= book.rating %> | Read on: <%= book.date_read ?
+                book.date_read.toISOString().slice(0,10) : '' %>
+              </div>
+              <div class="book-meta"><%= book.review %></div>
+              <div class="actions">
+                <a class="btn" href="/books/<%= book.id %>/edit">Edit</a>
+                <form
+                  action="/books/<%= book.id %>/delete"
+                  method="POST"
+                  style="display: inline"
+                >
+                  <button type="submit" class="delete-btn">Delete</button>
+                </form>
+              </div>
+            </div>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
