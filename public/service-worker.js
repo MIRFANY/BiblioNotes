@@ -1,12 +1,11 @@
 const CACHE_NAME = 'biblionotes-v1';
 const urlsToCache = [
-  '/',
   '/styles.css',
   '/default-cover.svg',
   '/manifest.json'
 ];
 
-// Install event - cache assets
+// Install event - cache assets (NOT the home page)
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -43,8 +42,8 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Don't cache API calls or navigation that require auth
-  if (event.request.url.includes('/books') || event.request.url.includes('/api')) {
+  // Don't cache navigation requests (/, /login, /register, /books, etc)
+  if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
@@ -77,7 +76,7 @@ self.addEventListener('fetch', (event) => {
             return response;
           }
 
-          // Cache successful responses for static assets
+          // Cache successful responses for static assets only
           const responseToCache = response.clone();
           caches.open(CACHE_NAME)
             .then((cache) => {
@@ -88,7 +87,10 @@ self.addEventListener('fetch', (event) => {
         });
       })
       .catch(() => {
-        return caches.match('/');
+        return new Response('Offline', {
+          status: 503,
+          statusText: 'Service Unavailable'
+        });
       })
   );
 });
