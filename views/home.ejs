@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ff8800" />
+    <meta
+      name="description"
+      content="BiblioNotes - Manage your personal library of books with ratings, reviews, and ISBN tracking"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="BiblioNotes" />
+    <link rel="manifest" href="/manifest.json" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23ff8800' width='192' height='192'/><text x='50%' y='50%' font-size='120' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='central'>📚</text></svg>"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23ff8800' width='192' height='192'/><text x='50%' y='50%' font-size='120' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='central'>📚</text></svg>"
+    />
     <title>BiblioNotes - Welcome</title>
     <link rel="stylesheet" href="/styles.css" />
     <style>
@@ -10,14 +33,14 @@
         box-sizing: border-box;
       }
       body {
-        background: url('/bg-home.png') center/cover no-repeat fixed;
+        background: url("/bg-home.png") center/cover no-repeat fixed;
         font-family: "Segoe UI", Arial, sans-serif;
         color: #fff;
         min-height: 100vh;
         position: relative;
       }
       body::before {
-        content: '';
+        content: "";
         position: fixed;
         top: 0;
         left: 0;
@@ -93,13 +116,13 @@
         font-size: 2.8rem;
         margin-bottom: 0.8rem;
         color: #fff;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       }
       .hero-content p {
         font-size: 1rem;
         color: #fff;
         margin-bottom: 1.5rem;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
       }
       .get-started-btn {
         background: #ff8800;
@@ -219,7 +242,7 @@
   </head>
   <body>
     <header>
-      <div class="logo"> BiblioNotes</div>
+      <div class="logo">BiblioNotes</div>
       <nav>
         <a href="/"></a>
         <% if (loggedIn) { %>
@@ -300,5 +323,21 @@
         </div>
       </div>
     </div>
+
+    <script>
+      // Register Service Worker for PWA functionality
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/service-worker.js")
+            .then((registration) => {
+              console.log("Service Worker registered:", registration);
+            })
+            .catch((error) => {
+              console.log("Service Worker registration failed:", error);
+            });
+        });
+      }
+    </script>
   </body>
 </html>
