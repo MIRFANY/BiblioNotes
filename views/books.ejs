@@ -1,15 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Book Notes</title>
+    <title>BiblioNotes - My Books</title>
     <link rel="stylesheet" href="/styles.css" />
     <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
       body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #fff;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
-        min-height: 100vh;
-        background: #fff8f0;
       }
+      header {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 0.8rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+      .logo { font-size: 1.3rem; font-weight: bold; color: #ff8800; }
+      nav { display: flex; gap: 2rem; }
+      nav a { color: #fff; text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+      nav a:hover { color: #ff8800; }
+      .auth-buttons { display: flex; gap: 0.8rem; align-items: center; }
+      .auth-buttons span { font-size: 0.85rem; }
+      .logout-btn { background: #ff8800; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; text-decoration: none; font-size: 0.85rem; transition: all 0.3s; }
+      .logout-btn:hover { background: #ff6600; }
+      
       .main-wrapper {
         flex: 1;
         display: flex;
@@ -19,103 +39,84 @@
       }
       .container {
         width: 100%;
-        max-width: 700px;
-        background: #fff;
+        max-width: 800px;
+        background: rgba(0, 0, 0, 0.6);
         border-radius: 12px;
-        box-shadow: 0 2px 16px rgba(255, 136, 0, 0.1);
+        border: 1px solid #ff8800;
+        box-shadow: 0 4px 16px rgba(255, 136, 0, 0.2);
         padding: 2rem 2.5rem;
         margin-bottom: 2rem;
       }
-      .book-list {
-        margin: 0;
-        padding: 0;
-      }
+      .book-list { margin: 0; padding: 0; list-style: none; }
       .book-list li {
         opacity: 0;
         transform: translateY(20px);
         animation: fadeInUp 0.6s forwards;
         animation-delay: var(--delay);
-        background: #fff8f0;
+        background: rgba(255, 136, 0, 0.1);
+        border: 1px solid #ff8800;
         border-radius: 8px;
         margin-bottom: 1rem;
-        box-shadow: 0 1px 4px rgba(255, 136, 0, 0.05);
         padding: 1rem;
         display: flex;
         align-items: center;
         gap: 1.5rem;
       }
-      @keyframes fadeInUp {
-        to {
-          opacity: 1;
-          transform: none;
-        }
-      }
-      .book-list img {
-        height: 90px;
-        border-radius: 4px;
-        box-shadow: 0 1px 4px rgba(255, 136, 0, 0.08);
-        background: #fff8f0;
-      }
-      .actions {
-        margin-top: 0.5rem;
-      }
-      a,
-      .btn {
-        color: #ff8800;
-      }
-      a:hover,
-      .btn:hover {
-        color: #ff6600;
-      }
-      header {
-        background-color: #ff8800;
-        color: white;
-        padding: 10px 0;
-        text-align: center;
-        font-size: 2rem;
-        letter-spacing: 2px;
-        box-shadow: 0 2px 8px rgba(255, 136, 0, 0.07);
-      }
+      @keyframes fadeInUp { to { opacity: 1; transform: none; } }
+      .book-list img { height: 90px; border-radius: 4px; box-shadow: 0 1px 4px rgba(255, 136, 0, 0.1); }
+      .book-details { flex: 1; }
+      .book-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 0.3rem; color: #ff8800; }
+      .book-author { color: #ccc; font-size: 1rem; margin-bottom: 0.5rem; }
+      .book-meta { font-size: 0.9rem; color: #aaa; margin-bottom: 0.5rem; }
+      .actions { margin-top: 0.8rem; display: flex; gap: 0.5rem; }
       .btn {
         display: inline-block;
-        padding: 8px 16px;
-        margin-right: 10px;
-        border: none;
-        border-radius: 4px;
-        background-color: #ff8800;
-        color: white;
-        text-decoration: none;
-        font-size: 1rem;
-        transition: background-color 0.3s;
-      }
-      .btn:hover {
-        background-color: #ff6600;
-      }
-      .delete-btn {
-        background-color: #ff6600;
+        padding: 0.5rem 1rem;
+        background: #ff8800;
         color: #fff;
         border: none;
         border-radius: 4px;
-        padding: 0.4rem 1rem;
-        font-size: 1rem;
+        text-decoration: none;
+        font-size: 0.9rem;
         cursor: pointer;
-        transition: background 0.2s;
+        transition: all 0.3s;
       }
-      .delete-btn:hover {
-        background-color: #ff3300;
+      .btn:hover { background: #ff6600; transform: scale(1.05); }
+      .delete-btn { background: #ff3300; }
+      .delete-btn:hover { background: #cc0000; }
+      .add-btn {
+        display: inline-block;
+        padding: 0.6rem 1.5rem;
+        background: #ff8800;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 0.95rem;
+        cursor: pointer;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s;
       }
+      .add-btn:hover { background: #ff6600; }
     </style>
   </head>
   <body>
-    <header>Book Notes</header>
+    <header>
+      <div class="logo"> BiblioNotes</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/books">My Books</a>
+        <a href="/books/new">Add Book</a>
+      </nav>
+      <div class="auth-buttons">
+        <span>👤 <%= username %></span>
+        <a href="/logout" class="logout-btn">Logout</a>
+      </div>
+    </header>
+
     <div class="main-wrapper">
       <div class="container">
-        <a
-          class="btn"
-          href="/books/new"
-          style="margin-bottom: 1rem; display: inline-block"
-          >Add New Book</a
-        >
+        <a href="/books/new" class="add-btn">+ Add New Book</a>
         <ul class="book-list">
           <% books.forEach(function(book, i) { %>
           <li style="--delay: <%= i * 0.1 %>s">
@@ -138,8 +139,9 @@
                   action="/books/<%= book.id %>/delete"
                   method="POST"
                   style="display: inline"
+                  onsubmit="return confirm('Are you sure you want to delete this book?');"
                 >
-                  <button type="submit" class="delete-btn">Delete</button>
+                  <button type="submit" class="btn delete-btn">Delete</button>
                 </form>
               </div>
             </div>

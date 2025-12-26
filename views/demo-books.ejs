@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BiblioNotes </title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        font-family: "Segoe UI", Arial, sans-serif;
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 0.8rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+      .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #ff8800;
+      }
+      nav {
+        display: flex;
+        gap: 2rem;
+      }
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s;
+      }
+      nav a:hover {
+        color: #ff8800;
+      }
+      .auth-buttons {
+        display: flex;
+        gap: 0.8rem;
+        align-items: center;
+      }
+      .demo-badge {
+        background: #ff8800;
+        color: #fff;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      .main-wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: 2rem;
+      }
+      .container {
+        width: 100%;
+        max-width: 800px;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 12px;
+        border: 1px solid #ff8800;
+        box-shadow: 0 4px 16px rgba(255, 136, 0, 0.2);
+        padding: 2rem 2.5rem;
+        margin-bottom: 2rem;
+      }
+      .demo-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid #ff8800;
+      }
+      .demo-header h2 {
+        color: #ff8800;
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+      }
+      .demo-header p {
+        color: #ccc;
+        font-size: 0.95rem;
+      }
+
+      .book-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .book-list li {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s forwards;
+        animation-delay: var(--delay);
+        background: rgba(255, 136, 0, 0.1);
+        border: 1px solid #ff8800;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .book-list img {
+        height: 90px;
+        border-radius: 4px;
+        box-shadow: 0 1px 4px rgba(255, 136, 0, 0.1);
+      }
+      .book-details {
+        flex: 1;
+      }
+      .book-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 0.3rem;
+        color: #ff8800;
+      }
+      .book-author {
+        color: #ccc;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      .book-isbn {
+        color: #888;
+        font-size: 0.85rem;
+        margin-bottom: 0.3rem;
+        font-family: monospace;
+      }
+      .book-meta {
+        font-size: 0.9rem;
+        color: #aaa;
+        margin-bottom: 0.5rem;
+      }
+      .book-review {
+        font-size: 0.9rem;
+        color: #bbb;
+        font-style: italic;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-bottom: 1.5rem;
+        padding: 0.6rem 1.5rem;
+        background: #ff8800;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 0.95rem;
+        transition: all 0.3s;
+      }
+      .back-link:hover {
+        background: #ff6600;
+      }
+
+      @media (max-width: 768px) {
+        nav {
+          gap: 1rem;
+        }
+        nav a {
+          font-size: 0.8rem;
+        }
+        .container {
+          padding: 1.5rem;
+        }
+        .book-list li {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .book-list img {
+          height: 80px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo"> BiblioNotes</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/">Login</a>
+      </nav>
+      <div class="auth-buttons">
+        <span class="demo-badge">Profile</span>
+      </div>
+    </header>
+
+    <div class="main-wrapper">
+      <div class="container">
+        <a href="/" class="back-link">← Back to Home</a>
+
+        <div class="demo-header">
+          <h2> My Books Collection</h2>
+          <p>
+           
+          </p>
+        </div>
+
+        <ul class="book-list">
+          <% books.forEach(function(book, i) { %>
+          <li style="--delay: <%= i * 0.1 %>s">
+            <img
+              src="<%= book.cover_url %>"
+              alt="<%= book.title %>"
+              onerror="this.src='/default-cover.svg'"
+            />
+            <div class="book-details">
+              <div class="book-title"><%= book.title %></div>
+              <div class="book-author">by <%= book.author %></div>
+              <div class="book-isbn">ISBN: <%= book.isbn %></div>
+              <div class="book-meta">
+                ⭐ Rating: <%= book.rating %>/5 | Read: <%=
+                book.date_read.toISOString().slice(0,10) %>
+              </div>
+              <div class="book-review"><%= book.review %></div>
+            </div>
+          </li>
+          <% }) %>
+        </ul>
+
+        <div
+          style="
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #ff8800;
+          "
+        >
+          <p style="color: #ccc; margin-bottom: 1rem">
+            Want to create your own book collection?
+          </p>
+          <a href="/" class="back-link" style="background: #28a745"
+            >Sign Up Now</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BiblioNotes - Welcome</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: url('/bg-home.png') center/cover no-repeat fixed;
+        font-family: "Segoe UI", Arial, sans-serif;
+        color: #fff;
+        min-height: 100vh;
+        position: relative;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: -1;
+        pointer-events: none;
+      }
+      header {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 0.8rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+      .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #ff8800;
+      }
+      nav {
+        display: flex;
+        gap: 2rem;
+      }
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s;
+      }
+      nav a:hover {
+        color: #ff8800;
+      }
+      .auth-buttons {
+        display: flex;
+        gap: 0.8rem;
+      }
+      .auth-buttons a {
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+      }
+      .login-btn {
+        color: #fff;
+        border: 1px solid #ff8800;
+      }
+      .login-btn:hover {
+        background: #ff8800;
+        color: #fff;
+      }
+      .signup-btn {
+        background: #ff8800;
+        color: #fff;
+      }
+      .signup-btn:hover {
+        background: #ff6600;
+      }
+
+      .hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 3rem auto;
+        padding: 0 2rem;
+        gap: 2rem;
+      }
+      .hero-content h1 {
+        font-size: 2.8rem;
+        margin-bottom: 0.8rem;
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      }
+      .hero-content p {
+        font-size: 1rem;
+        color: #fff;
+        margin-bottom: 1.5rem;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      }
+      .get-started-btn {
+        background: #ff8800;
+        color: #fff;
+        padding: 0.8rem 2rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .get-started-btn:hover {
+        background: #ff6600;
+        transform: scale(1.05);
+      }
+
+      .hero-image {
+        flex: 1;
+        text-align: center;
+        font-size: 8rem;
+      }
+
+      .quick-access {
+        background: rgba(0, 0, 0, 0.6);
+        padding: 2.5rem 2rem;
+        margin-top: 2rem;
+      }
+      .quick-access h2 {
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 0.8rem;
+        color: #ff8800;
+      }
+      .quick-access p {
+        text-align: center;
+        color: #ccc;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+      }
+      .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 2rem;
+        padding: 0 2rem;
+      }
+      .card {
+        background: rgba(255, 136, 0, 0.15);
+        border: 1px solid #ff8800;
+        border-radius: 8px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(255, 136, 0, 0.3);
+        background: rgba(255, 136, 0, 0.25);
+      }
+      .card-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      .card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        color: #ff8800;
+      }
+      .card p {
+        color: #ccc;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+      }
+      .card-btn {
+        background: #ff8800;
+        color: #fff;
+        padding: 0.6rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .card-btn:hover {
+        background: #ff6600;
+        transform: scale(1.05);
+      }
+      .card-btn.secondary {
+        background: #28a745;
+      }
+      .card-btn.secondary:hover {
+        background: #218838;
+      }
+
+      @media (max-width: 768px) {
+        .hero {
+          flex-direction: column;
+          margin: 2rem auto;
+        }
+        .hero-content h1 {
+          font-size: 2rem;
+        }
+        .hero-image {
+          font-size: 5rem;
+        }
+        .cards-container {
+          grid-template-columns: 1fr;
+          padding: 0 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo"> BiblioNotes</div>
+      <nav>
+        <a href="/"></a>
+        <% if (loggedIn) { %>
+        <a href="/books">My Books</a>
+        <a href="/books/new">Add Book</a>
+        <% } %>
+      </nav>
+      <div class="auth-buttons">
+        <% if (!loggedIn) { %>
+        <a href="/login" class="login-btn">Login</a>
+        <a href="/register" class="signup-btn">Sign Up</a>
+        <% } else { %>
+        <span style="margin-right: 1rem">👤 <%= username %></span>
+        <a href="/logout" class="signup-btn">Logout</a>
+        <% } %>
+      </div>
+    </header>
+
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Welcome to BiblioNotes!</h1>
+        <p>Manage Your Personal Library of Books Easily</p>
+        <% if (!loggedIn) { %>
+        <a href="/register" class="get-started-btn">Get Started</a>
+        <% } else { %>
+        <a href="/books" class="get-started-btn">View My Books</a>
+        <% } %>
+      </div>
+      <div class="hero-image"></div>
+    </div>
+
+    <div class="quick-access">
+      <h2>Quick Access</h2>
+      <p>Manage your books and account easily with these quick options:</p>
+      <div class="cards-container">
+        <div class="card">
+          <div class="card-icon">≣≡</div>
+          <h3>Books List</h3>
+          <p>Shows all books for the logged in user.</p>
+          <% if (loggedIn) { %>
+          <a href="/books" class="card-btn">View Books</a>
+          <% } else { %>
+          <a href="/login" class="card-btn">Login to View</a>
+          <% } %>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">+</div>
+          <h3>Add Book</h3>
+          <p>Quickly add a new book to your library.</p>
+          <% if (loggedIn) { %>
+          <a href="/books/new" class="card-btn">Add Book</a>
+          <% } else { %>
+          <a href="/login" class="card-btn">Login to Add</a>
+          <% } %>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">✏️</div>
+          <h3>Edit Book</h3>
+          <p>Edit the details of your existing books.</p>
+          <% if (loggedIn) { %>
+          <a href="/books" class="card-btn">Manage Books</a>
+          <% } else { %>
+          <a href="/login" class="card-btn">Login to Edit</a>
+          <% } %>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">👤</div>
+          <h3>Register</h3>
+          <p>Create a new account to start using the app.</p>
+          <% if (!loggedIn) { %>
+          <a href="/register" class="card-btn secondary">Sign Up</a>
+          <% } else { %>
+          <span style="color: #ccc">Already registered</span>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

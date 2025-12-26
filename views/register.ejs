@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BiblioNotes - Register</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .auth-container {
+        max-width: 400px;
+        background: rgba(0, 0, 0, 0.6);
+        border: 1px solid #ff8800;
+        border-radius: 8px;
+        box-shadow: 0 4px 16px rgba(255, 136, 0, 0.2);
+        padding: 2.5rem;
+      }
+      h1 {
+        color: #ff8800;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+      }
+      .error {
+        background: rgba(255, 51, 0, 0.2);
+        color: #ff8866;
+        border: 1px solid #ff3300;
+        text-align: center;
+        margin-bottom: 1rem;
+        padding: 0.8rem;
+        border-radius: 4px;
+      }
+      form label {
+        display: block;
+        margin: 1rem 0 0.4rem 0;
+        font-weight: 500;
+        color: #ff8800;
+        font-size: 0.95rem;
+      }
+      form input {
+        width: 100%;
+        padding: 0.7rem;
+        border: 1px solid #ff8800;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        background: rgba(255, 136, 0, 0.1);
+        color: #fff;
+        transition: all 0.3s;
+      }
+      form input:focus {
+        outline: none;
+        border-color: #ff6600;
+        background: rgba(255, 136, 0, 0.2);
+      }
+      button[type="submit"] {
+        width: 100%;
+        padding: 0.8rem;
+        background: #ff8800;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      button[type="submit"]:hover {
+        background: #ff6600;
+        transform: scale(1.02);
+      }
+      p {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: #ccc;
+        font-size: 0.95rem;
+      }
+      a {
+        color: #ff8800;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      a:hover {
+        color: #ff6600;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="auth-container">
+      <h1>Register</h1>
+      <% if (error) { %>
+      <div class="error"><%= error %></div>
+      <% } %>
+      <form method="POST" action="/register">
+        <label>Username:</label>
+        <input type="text" name="username" required />
+        <label>Password:</label>
+        <input type="password" name="password" required />
+        <button type="submit">Register</button>
+      </form>
+      <p>Already have an account? <a href="/login">Login here</a></p>
+    </div>
+  </body>
+</html>

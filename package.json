@@ -1,5 +1,5 @@
 {
-  "name": "bookrevhist",
+  "name": "biblionotes",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,15 +10,26 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "A full-stack web application to track, review, and rate books, featuring a modern olive and white UI with bold animations. Built with Node.js, Express.js, PostgreSQL, EJS, and the Open Library Covers API.",
   "dependencies": {
     "axios": "^1.11.0",
+    "bcrypt": "^6.0.0",
+    "connect-pg-simple": "^10.0.0",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
     "pg": "^8.16.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MIRFANY/BiblioNotes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MIRFANY/BiblioNotes/issues"
+  },
+  "homepage": "https://github.com/MIRFANY/BiblioNotes#readme"
 }
