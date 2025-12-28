@@ -3,6 +3,9 @@
 
 A full-stack web application to track, review, and rate books, featuring a modern olive and white UI with bold animations. Built with Node.js, Express.js, PostgreSQL, EJS, and the Open Library Covers API.
 
+Live: https://biblionote.onrender.com/
+
+
 ## Features
 
 - Add, edit, and delete book entries
