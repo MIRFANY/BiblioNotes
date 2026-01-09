@@ -39,17 +39,6 @@
         min-height: 100vh;
         position: relative;
       }
-      body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.4);
-        z-index: -1;
-        pointer-events: none;
-      }
       header {
         background: rgba(0, 0, 0, 0.7);
         padding: 0.8rem 2rem;
@@ -148,7 +137,7 @@
       }
 
       .quick-access {
-        background: rgba(0, 0, 0, 0.6);
+        background: transparent;
         padding: 2.5rem 2rem;
         margin-top: 2rem;
       }
@@ -166,39 +155,136 @@
       }
       .cards-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         max-width: 1200px;
         margin: 0 auto;
-        gap: 2rem;
+        gap: 1.2rem;
         padding: 0 2rem;
       }
       .card {
-        background: rgba(255, 136, 0, 0.15);
-        border: 1px solid #ff8800;
-        border-radius: 8px;
+        border-radius: 12px;
         padding: 2rem;
         text-align: center;
         transition: all 0.3s;
+        border: 2px solid;
+        position: relative;
+        overflow: hidden;
       }
-      .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(255, 136, 0, 0.3);
-        background: rgba(255, 136, 0, 0.25);
+      .card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.1;
+        z-index: 0;
       }
+      .card > * {
+        position: relative;
+        z-index: 1;
+      }
+      /* Card 1 - Books List */
+      .card:nth-child(1) {
+        background: linear-gradient(
+          135deg,
+          rgba(66, 165, 245, 0.2) 0%,
+          rgba(66, 165, 245, 0.05) 100%
+        );
+        border-color: #42a5f5;
+      }
+      .card:nth-child(1):hover {
+        background: linear-gradient(
+          135deg,
+          rgba(66, 165, 245, 0.3) 0%,
+          rgba(66, 165, 245, 0.15) 100%
+        );
+        box-shadow: 0 8px 24px rgba(66, 165, 245, 0.4);
+        transform: translateY(-8px);
+      }
+      .card:nth-child(1) h3 {
+        color: #42a5f5;
+      }
+
+      /* Card 2 - Add Book */
+      .card:nth-child(2) {
+        background: linear-gradient(
+          135deg,
+          rgba(76, 175, 80, 0.2) 0%,
+          rgba(76, 175, 80, 0.05) 100%
+        );
+        border-color: #4caf50;
+      }
+      .card:nth-child(2):hover {
+        background: linear-gradient(
+          135deg,
+          rgba(76, 175, 80, 0.3) 0%,
+          rgba(76, 175, 80, 0.15) 100%
+        );
+        box-shadow: 0 8px 24px rgba(76, 175, 80, 0.4);
+        transform: translateY(-8px);
+      }
+      .card:nth-child(2) h3 {
+        color: #4caf50;
+      }
+
+      /* Card 3 - Edit Book */
+      .card:nth-child(3) {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 152, 0, 0.2) 0%,
+          rgba(255, 152, 0, 0.05) 100%
+        );
+        border-color: #ff9800;
+      }
+      .card:nth-child(3):hover {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 152, 0, 0.3) 0%,
+          rgba(255, 152, 0, 0.15) 100%
+        );
+        box-shadow: 0 8px 24px rgba(255, 152, 0, 0.4);
+        transform: translateY(-8px);
+      }
+      .card:nth-child(3) h3 {
+        color: #ff9800;
+      }
+
+      /* Card 4 - Register */
+      .card:nth-child(4) {
+        background: linear-gradient(
+          135deg,
+          rgba(156, 39, 176, 0.2) 0%,
+          rgba(156, 39, 176, 0.05) 100%
+        );
+        border-color: #9c27b0;
+      }
+      .card:nth-child(4):hover {
+        background: linear-gradient(
+          135deg,
+          rgba(156, 39, 176, 0.3) 0%,
+          rgba(156, 39, 176, 0.15) 100%
+        );
+        box-shadow: 0 8px 24px rgba(156, 39, 176, 0.4);
+        transform: translateY(-8px);
+      }
+      .card:nth-child(4) h3 {
+        color: #9c27b0;
+      }
+
       .card-icon {
-        font-size: 3rem;
+        font-size: 3.5rem;
         margin-bottom: 1rem;
+        display: block;
       }
-      .card h3 {
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
-        color: #ff8800;
-      }
+
       .card p {
-        color: #ccc;
+        color: #e0e0e0;
         font-size: 0.9rem;
         margin-bottom: 1.5rem;
+        line-height: 1.5;
       }
+
       .card-btn {
         background: #ff8800;
         color: #fff;
@@ -210,16 +296,17 @@
         transition: all 0.3s;
         text-decoration: none;
         display: inline-block;
+        font-weight: 600;
       }
       .card-btn:hover {
         background: #ff6600;
         transform: scale(1.05);
       }
       .card-btn.secondary {
-        background: #28a745;
+        background: #9c27b0;
       }
       .card-btn.secondary:hover {
-        background: #218838;
+        background: #7b1fa2;
       }
 
       @media (max-width: 768px) {
@@ -238,6 +325,31 @@
           padding: 0 1rem;
         }
       }
+
+      footer {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 2rem;
+        text-align: center;
+        margin-top: 3rem;
+        border-top: 2px solid #ff8800;
+      }
+
+      footer p {
+        color: #ccc;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+
+      footer .footer-brand {
+        color: #ff8800;
+        font-weight: bold;
+        font-size: 1rem;
+      }
+
+      footer .footer-creator {
+        color: #ff8800;
+        font-weight: 600;
+      }
     </style>
   </head>
   <body>
@@ -255,7 +367,9 @@
         <a href="/login" class="login-btn">Login</a>
         <a href="/register" class="signup-btn">Sign Up</a>
         <% } else { %>
-        <span style="margin-right: 1rem">👤 <%= username %></span>
+        <span style="margin-right: 1rem; font-size: 0.75rem"
+          >👤 <%= username %></span
+        >
         <a href="/logout" class="signup-btn">Logout</a>
         <% } %>
       </div>
@@ -323,6 +437,17 @@
         </div>
       </div>
     </div>
+
+    <footer>
+      <p>
+        <span class="footer-brand">📚 BiblioNotes</span> - Your Personal Library
+        Manager
+      </p>
+      <p>Built by <span class="footer-creator">Irfan</span></p>
+      <p style="color: #999; font-size: 0.8rem; margin-top: 1rem">
+        © 2026 BiblioNotes. All rights reserved.
+      </p>
+    </footer>
 
     <script>
       // Register Service Worker for PWA functionality

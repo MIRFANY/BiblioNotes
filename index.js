@@ -189,6 +189,73 @@ app.get('/', (req, res) => {
     res.render('home', { loggedIn, username });
 });
 
+// List all wishlist items
+app.get('/wishlist', requireLogin, async (req, res) => {
+    try {
+        const result = await pool.query(`SELECT * FROM wishlist WHERE user_id = $1 ORDER BY added_date DESC`, [req.session.userId]);
+        res.render('wishlist', { wishlistItems: result.rows, username: req.session.username, loggedIn: true });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error fetching wishlist');
+    }
+});
+
+// Show form to add a book to wishlist
+app.get('/wishlist/new', requireLogin, (req, res) => {
+    res.render('wishlist-form', { item: null, username: req.session.username, loggedIn: true });
+});
+
+// Add a new book to wishlist
+app.post('/wishlist', requireLogin, async (req, res) => {
+    try {
+        const { title, author, isbn, reason } = req.body;
+        const cover_url = await getCoverUrl(isbn);
+        await pool.query(
+            'INSERT INTO wishlist (title, author, isbn, cover_url, reason, user_id) VALUES ($1, $2, $3, $4, $5, $6)',
+            [title, author, isbn, cover_url, reason, req.session.userId]
+        );
+        res.redirect('/wishlist');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error adding book to wishlist');
+    }
+});
+
+// Move wishlist item to books (mark as read)
+app.post('/wishlist/:id/read', requireLogin, async (req, res) => {
+    try {
+        const itemResult = await pool.query('SELECT * FROM wishlist WHERE id = $1 AND user_id = $2', [req.params.id, req.session.userId]);
+        if (itemResult.rows.length === 0) {
+            return res.status(404).send('Item not found');
+        }
+        const item = itemResult.rows[0];
+        
+        // Add to books
+        await pool.query(
+            'INSERT INTO books (title, author, isbn, cover_url, user_id) VALUES ($1, $2, $3, $4, $5)',
+            [item.title, item.author, item.isbn, item.cover_url, req.session.userId]
+        );
+        
+        // Remove from wishlist
+        await pool.query('DELETE FROM wishlist WHERE id = $1', [req.params.id]);
+        res.redirect('/wishlist');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error moving book to library');
+    }
+});
+
+// Delete a wishlist item
+app.post('/wishlist/:id/delete', requireLogin, async (req, res) => {
+    try {
+        await pool.query('DELETE FROM wishlist WHERE id = $1 AND user_id = $2', [req.params.id, req.session.userId]);
+        res.redirect('/wishlist');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error deleting wishlist item');
+    }
+});
+
 // Demo/Showcase page for books listing
 app.get('/demo', (req, res) => {
     const demoBooks = [
@@ -241,7 +308,7 @@ app.use((req, res) => {
     res.status(404).send('Page not found');
 });
 
-const PORT = process.env.PORT || 3060;
+const PORT = process.env.PORT || 3070;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });

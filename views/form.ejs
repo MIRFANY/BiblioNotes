@@ -55,6 +55,10 @@
       nav a:hover {
         color: #ff8800;
       }
+      nav a.active {
+        color: #ff8800;
+        font-weight: bold;
+      }
       .nav-links {
         display: flex;
         gap: 2rem;
@@ -181,9 +185,11 @@
   <body>
     <header>
       <a href="/" class="logo"> BiblioNotes</a>
-      <div class="nav-links">
+      <nav>
         <a href="/books">My Books</a>
-        <a href="/books/new">Add Book</a>
+        <a href="/wishlist">📖 Wishlist</a>
+      </nav>
+      <div class="nav-links">
         <form action="/logout" method="POST" style="display: inline">
           <button type="submit" class="logout-btn">Logout</button>
         </form>

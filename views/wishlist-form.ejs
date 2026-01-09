@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add Book to Wishlist</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        font-family: "Segoe UI", Arial, sans-serif;
+        color: #fff;
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 0.8rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+      .logo {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #ff8800;
+      }
+      nav {
+        display: flex;
+        gap: 2rem;
+      }
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s;
+      }
+      nav a:hover {
+        color: #ff8800;
+      }
+      nav a.active {
+        color: #ff8800;
+        font-weight: bold;
+      }
+      .logout-btn {
+        background: #ff8800;
+        color: #fff;
+        padding: 0.4rem 0.8rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+      }
+      .logout-btn:hover {
+        background: #ff6600;
+      }
+      .auth-buttons {
+        display: flex;
+        gap: 0.8rem;
+        align-items: center;
+      }
+      .auth-buttons span {
+        font-size: 0.85rem;
+      }
+      .main-wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+      }
+      .form-container {
+        width: 100%;
+        max-width: 500px;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 8px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        padding: 2.5rem;
+        border: 1px solid rgba(255, 136, 0, 0.2);
+      }
+      h1 {
+        color: #ff8800;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+        text-align: center;
+      }
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #ddd;
+        font-size: 0.95rem;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ff8800;
+        border-radius: 4px;
+        background: rgba(255, 136, 0, 0.1);
+        color: #fff;
+        font-family: inherit;
+        font-size: 0.95rem;
+        transition: all 0.3s;
+      }
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #ff6600;
+        box-shadow: 0 0 8px rgba(255, 136, 0, 0.3);
+        background: rgba(255, 136, 0, 0.15);
+      }
+      textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      .button-group {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      button,
+      .back-link {
+        flex: 1;
+        padding: 0.8rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        text-align: center;
+        display: inline-block;
+      }
+      button {
+        background: #ff8800;
+        color: #fff;
+        font-weight: bold;
+      }
+      button:hover {
+        background: #ff6600;
+        transform: scale(1.05);
+      }
+      .back-link {
+        background: rgba(255, 136, 0, 0.2);
+        color: #ff8800;
+        border: 1px solid #ff8800;
+      }
+      .back-link:hover {
+        background: rgba(255, 136, 0, 0.3);
+      }
+      .hint {
+        font-size: 0.8rem;
+        color: #aaa;
+        margin-top: 0.3rem;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">📚 BiblioNotes</div>
+      <nav>
+        <a href="/books">My Books</a>
+        <a href="/wishlist" class="active">📖 Wishlist</a>
+      </nav>
+      <div class="auth-buttons">
+        <span><%= username %></span>
+        <form action="/logout" method="GET" style="display: inline">
+          <button type="submit" class="logout-btn">Logout</button>
+        </form>
+      </div>
+    </header>
+    <div class="main-wrapper">
+      <div class="form-container">
+        <h1>📖 Add Book to Wishlist</h1>
+        <form action="/wishlist" method="POST">
+          <div class="form-group">
+            <label for="title"
+              >Book Title <span style="color: #ff8800">*</span></label
+            >
+            <input
+              type="text"
+              id="title"
+              name="title"
+              required
+              placeholder="e.g., Thinking, Fast and Slow"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="author"
+              >Author <span style="color: #ff8800">*</span></label
+            >
+            <input
+              type="text"
+              id="author"
+              name="author"
+              required
+              placeholder="e.g., Daniel Kahneman"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="isbn">ISBN (Optional)</label>
+            <input
+              type="text"
+              id="isbn"
+              name="isbn"
+              placeholder="e.g., 9780374275631"
+            />
+            <div class="hint">
+              ISBN helps fetch the book cover automatically
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="reason">Why do you want to read this? (Optional)</label>
+            <textarea
+              id="reason"
+              name="reason"
+              placeholder="e.g., Recommended by a friend, interested in psychology, improves critical thinking..."
+            ></textarea>
+            <div class="hint">
+              Helps you remember your motivation for reading
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button type="submit">✓ Add to Wishlist</button>
+            <a href="/wishlist" class="back-link">← Back</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
