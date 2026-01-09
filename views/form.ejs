@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= book ? 'Edit Book' : 'Add Book' %></title>
     <link rel="stylesheet" href="/styles.css" />
     <style>
@@ -167,6 +169,97 @@
       }
       .back-link:hover {
         color: #ff6600;
+      }
+
+      @media (max-width: 768px) {
+        header {
+          padding: 0.6rem 1rem;
+          flex-wrap: wrap;
+        }
+        .logo {
+          font-size: 1rem;
+        }
+        nav {
+          gap: 1rem;
+          font-size: 0.75rem;
+        }
+        nav a {
+          font-size: 0.75rem;
+        }
+        .nav-links {
+          gap: 0.5rem;
+        }
+        .logout-btn {
+          padding: 0.3rem 0.6rem;
+          font-size: 0.7rem;
+        }
+        .main-wrapper {
+          padding: 1.5rem 1rem;
+        }
+        .form-container {
+          padding: 1.5rem;
+          max-width: 100%;
+        }
+        h1 {
+          font-size: 1.3rem;
+        }
+        form label {
+          font-size: 0.8rem;
+        }
+        form input,
+        form textarea {
+          padding: 0.6rem;
+          font-size: 0.85rem;
+          margin-bottom: 1rem;
+        }
+        form button {
+          padding: 0.5rem 1rem;
+          font-size: 0.85rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        header {
+          padding: 0.5rem 0.5rem;
+        }
+        .logo {
+          font-size: 0.9rem;
+        }
+        nav {
+          gap: 0.5rem;
+          font-size: 0.6rem;
+        }
+        nav a {
+          font-size: 0.6rem;
+        }
+        .main-wrapper {
+          padding: 1rem 0.5rem;
+        }
+        .form-container {
+          padding: 1rem;
+        }
+        h1 {
+          font-size: 1.1rem;
+          margin-bottom: 1rem;
+        }
+        form label {
+          font-size: 0.75rem;
+        }
+        form input,
+        form textarea {
+          padding: 0.5rem;
+          font-size: 0.8rem;
+          margin-bottom: 0.8rem;
+        }
+        form button {
+          padding: 0.4rem 0.8rem;
+          font-size: 0.8rem;
+          margin-top: 0.8rem;
+        }
+        .back-link {
+          font-size: 0.8rem;
+          margin-top: 1rem;
+        }
       }
 
       @media (max-width: 768px) {
